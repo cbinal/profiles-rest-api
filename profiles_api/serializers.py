@@ -26,3 +26,9 @@ class UserProfileSerializer(serializers.ModelSerializer):
             password = validated_data.pop('password')
             instance.set_password(password)
         return super().update(instance, validated_data)
+
+class OfferSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.Offer
+        fields = ('id', 'user_id', 'reference_num', 'created_date', 'firm_name', 'city_name', 'address')
+        extra_kwargs = {'user_id': {'read_only': True}}

@@ -6,6 +6,7 @@ from profiles_api import views
 
 router = DefaultRouter()
 router.register('profile', views.UserProfileViewset)
+router.register('offer', views.OfferViewSet)
 
 urlpatterns = [
     path('login/', views.UserLoginApiView.as_view()),

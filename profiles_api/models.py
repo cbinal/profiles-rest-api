@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractBaseUser
 from django.contrib.auth.models import PermissionsMixin
 from django.contrib.auth.models import BaseUserManager
+from django.conf import settings
 
 class UserProfileManager(BaseUserManager):
     """Manager for user profiles"""
@@ -52,3 +53,17 @@ class UserProfile(AbstractBaseUser, PermissionsMixin):
     def __str__(self):
         """retrive string representation of our user"""
         return self.email
+
+class Offer(models.Model):
+    user_id = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.SET(1)
+    )
+    reference_num = models.CharField(max_length=50)
+    created_date = models.DateTimeField(auto_now_add=True)
+    firm_name = models.CharField(max_length=300)
+    city_name = models.CharField(max_length=100)
+    address = models.TextField()
+    
+    def __str__(self):
+        return self.firm_name
